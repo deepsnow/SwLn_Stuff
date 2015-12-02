@@ -33,23 +33,28 @@ module.exports = {
 		markNthToDoCompleted(client, '2');
 		//editNthToDo(client, '3', 'task D edited');
 		// client
-			// .pause(3000)
-			// .end();
+			// .pause(3000);
 	},
 	
 	'toggle completion state for all todos' : function (client) {
 		createToDos(client, [ 'task E' ]);
-		var cssSelector = getNthToDoSelector('2', 'input');
-		client.expect.element(cssSelector).to.be.selected;
-		cssSelector = getNthToDoSelector('3', 'input');
-		client.expect.element(cssSelector).to.not.be.selected;
-		cssSelector = getNthToDoSelector('4', 'input');
-		client.expect.element(cssSelector).to.not.be.selected;
+		var itemNums = [ '2' ];
+		verifyUniformCompletedState(client, itemNums, 'completed');
+		var itemNums = [ '3', '4' ];
+		verifyUniformCompletedState(client, itemNums, 'not completed');
 		toggleAllToDosCompleted(client);
-		var itemNums = [ '2', '3', '4' ];
+		itemNums = [ '2', '3', '4' ];
 		verifyUniformCompletedState(client, itemNums, 'completed');
 		toggleAllToDosCompleted(client);
 		verifyUniformCompletedState(client, itemNums, 'not completed');
+	},
+	
+	'delete all completed todos one click' : function (client) {
+		toggleAllToDosCompleted(client);
+		var itemNums = [ '2', '3', '4' ];
+		verifyUniformCompletedState(client, itemNums, 'completed');
+		deleteAllCompletedToDosOneClick(client);
+		client.expect.element('ul.todo-list').to.not.be.present;
 		client.end();
 	},
 
@@ -132,4 +137,10 @@ function clickOnSelector(client, cssSelector) {
 	client.click(cssSelector, function (result) {
 		verifyCallSucceeded(client, result);
 	});	
+}
+
+function deleteAllCompletedToDosOneClick(client) {
+	var cssSelector = 'button.clear-completed';
+	client.assert.visible(cssSelector);
+	clickOnSelector(client, cssSelector);
 }
