@@ -34,10 +34,16 @@
         "acceptSslCerts": true
       }
     },
-
-    "chrome" : {
+    "firefox" : {
       "desiredCapabilities": {
-        "browserName": "chrome",
+        "browserName": "firefox",
+        "javascriptEnabled": true,
+        "acceptSslCerts": true
+      }
+    },
+    "ie" : {
+      "desiredCapabilities": {
+        "browserName": "internet explorer",
         "javascriptEnabled": true,
         "acceptSslCerts": true
       }
