@@ -1,7 +1,7 @@
 
 
 exports.createToDos = function(client, todoDescriptions) {
-	for (i = 0; i < todoDescriptions.length; i++) {
+	for (var i = 0; i < todoDescriptions.length; i++) {
 		client.setValue('input.new-todo', [todoDescriptions[i], client.Keys.ENTER])
 	}
 }

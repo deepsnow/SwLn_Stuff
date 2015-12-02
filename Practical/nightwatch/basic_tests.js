@@ -85,7 +85,7 @@ module.exports = {
 
 function createToDoFromTextInFile(client, filePath, itemNum) {
 	var fs = require('fs');
-	//for (i = 0; i < filePaths.length; i++) { // Doing a loop here would result in fewer invocations from the caller, but it causes an async timing problem.
+	//for (var i = 0; i < filePaths.length; i++) { // Doing a loop here would result in fewer invocations from the caller, but it causes an async timing problem.
 		fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
 			if (!err){
 				th.createToDos(client, [ data ]);
@@ -98,7 +98,7 @@ function createToDoFromTextInFile(client, filePath, itemNum) {
 }
 
 function verifyUniformCompletedState(client, itemNums, desiredState) {
-	for (i = 0; i < itemNums.length; i++) {
+	for (var i = 0; i < itemNums.length; i++) {
 		var cssSelector = th.getNthToDoSelector(itemNums[i], 'input');
 		if (desiredState == 'completed') {
 			client.expect.element(cssSelector).to.be.selected;
