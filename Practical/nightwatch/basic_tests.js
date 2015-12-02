@@ -55,10 +55,31 @@ module.exports = {
 		verifyUniformCompletedState(client, itemNums, 'completed');
 		deleteAllCompletedToDosOneClick(client);
 		client.expect.element('ul.todo-list').to.not.be.present;
-		client.end();
 	},
+	
+	'create todo with non-english text' : function (client) {
+		var filePaths = ['./rune_poem_anglo_saxon.txt', './i_can_eat_glass_arabic.txt'];
+		var itemNums = ['2', '3'];
+		createToDoFromTextInFile(client, filePaths[0], itemNums[0]);
+		createToDoFromTextInFile(client, filePaths[1], itemNums[1]);
+		client.pause(2000).end();
+	}
 
 };
+
+function createToDoFromTextInFile(client, filePath, itemNum) {
+	var fs = require('fs');
+	//for (i = 0; i < filePaths.length; i++) { // Doing a loop here would result in fewer invocations from the caller, but it causes an async timing problem.
+		fs.readFile(filePath, {encoding: 'utf-8'}, function(err,data){
+			if (!err){
+				createToDos(client, [ data ]);
+				verifyNthToDoText(client, itemNum, data);
+			}else{
+				// how to report the error and exit?
+			}
+		});
+	//}
+}
 
 function verifyUniformCompletedState(client, itemNums, desiredState) {
 	for (i = 0; i < itemNums.length; i++) {
