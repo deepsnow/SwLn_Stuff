@@ -14,7 +14,7 @@
     "port" : 4444,
     "cli_args" : {
       "webdriver.chrome.driver" : "",
-      "webdriver.ie.driver" : ""
+      "webdriver.ie.driver" : "./IEDriverServer.exe"
     }
   },
 
