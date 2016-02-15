@@ -167,7 +167,7 @@ class XforceLookupTest(unittest.TestCase):
         ## This last test will not work if ip_data has non-string keys. See https://docs.python.org/3/library/json.html, section 19.2.1, in the spec for json.dumps(...).
 
     ## These next two tests do a pretty good job of covering my JSON parsing and printing. But, they don't provide complete coverage.
-    ## To make the coverage more complete I'd need to add additional JSON samples and ensure that all expected print() calls were made for each.
+    ## To make the coverage more complete I'd need to add additional JSON samples, until all possible data points in the API's model were accounted for, and ensure that all expected print() calls were made for each.
 
     def test__ParseIprNode_RootNode_AllExpectedCallsToPrintAreMade(self):
         with patch('builtins.print') as print_mock:
@@ -182,10 +182,10 @@ class XforceLookupTest(unittest.TestCase):
         assert print_mock.call_args_list == expected
 
 def main():
-    ##addr = '198.60.22.4' ## This is www.xmission.com, benign or so I would assume. It seems that XForce agrees.
-    ip_addr = '176.96.242.209' ## Malicious addr from Ukraine according to XForce.
-    ##addr = '162.158.102.101' ## Malicious addr from US according to XForce.
-    ##addr = '94.136.40.103' ## Malicious addr from UK according to XForce.
+    ##ip_addr = '198.60.22.4' ## This is www.xmission.com, benign or so I would assume. It seems that XForce agrees.
+    ##ip_addr = '176.96.242.209' ## Malicious addr from Ukraine according to XForce.
+    ##ip_addr = '162.158.102.101' ## Malicious addr from US according to XForce.
+    ip_addr = '94.136.40.103' ## Malicious addr from UK according to XForce.
     api_key = 'XXX'
     api_pswd = 'XXX'
     xl = XforceLookup(api_key, api_pswd)
